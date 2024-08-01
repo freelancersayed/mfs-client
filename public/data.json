@@ -1,0 +1,18 @@
+[
+    {
+        "name" : "sayed",
+        "email" : "user@gmail.com",
+        "phone" : "01257",
+        "pin":  "12345",
+        "status" : "Pending",
+        "role" : "user",
+    },
+    {
+        "name" : "ashik",
+        "email" : "agent@gmail.com",
+        "phone" : "01257",
+        "pin":  "12345",
+        "status" : "Approved",
+        "role" : "agent",
+    }
+]

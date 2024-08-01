@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.nav .active{   
+    /* border-bottom: 1px solid rgb(255, 4, 171); */
+    background-color: rgba(255, 0, 149, 0.897); 
+}
+
+.reg-dash .active{
+    background-color: rgb(255, 28, 161);
+    color: rgb(255, 255, 255);
+}
+
+.sidbar:hover .hidden{
+    display: block;
+  
+}
+
+.active-1 .active{
+    border: 1px solid rgb(212, 211, 211);
+}
