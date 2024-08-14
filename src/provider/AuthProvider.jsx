@@ -15,8 +15,9 @@ const AuthProvider = ({ children }) => {
     }, [email, number]);
 
     const logout = () => {
-        localStorage.removeItem('auth-token');
+        localStorage.removeItem('auth-token' );
         localStorage.removeItem('user-email');
+        localStorage.removeItem('user-number');
         setUser(null);
 
         Swal.fire({

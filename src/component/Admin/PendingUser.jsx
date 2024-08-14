@@ -21,7 +21,7 @@ const PendingUser = () => {
 
     const handleStatusChange = async (user, newStatus) => {
       try {
-          await axios.put(`http://localhost:5000/update-status/${user._id}`, {status: newStatus, balance: user.balance+40});
+          await axios.put(`https://mfs-server-xi.vercel.app/update-status/${user._id}`, {status: newStatus, balance: user.balance+40});
 
 
           refetch(); // Refresh the users data

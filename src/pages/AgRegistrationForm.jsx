@@ -15,7 +15,7 @@ const RegistrationForm = () => {
     const number = form.number.value;
     const email = form.email.value;
     const status = "Pending";
-    const role = "Agent";
+    const role = "agent";
     const balance = 0;
 
     if (pin.length !== 5 || isNaN(pin)) {
@@ -24,7 +24,7 @@ const RegistrationForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/agent', {
+      const response = await axios.post('https://mfs-server-xi.vercel.app/agent', {
         name,
         email,
         pin,

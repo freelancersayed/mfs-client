@@ -16,7 +16,7 @@ const PendingCashInRequests = () => {
 
 
   useEffect(() => {
-        fetch(`http://localhost:5000/user/${email}`)
+        fetch(`https://mfs-server-xi.vercel.app/user/${email}`)
           .then(res => res.json())
           .then(data => {
             // console.log(data[0]); // Checking fetched data
@@ -30,7 +30,7 @@ const PendingCashInRequests = () => {
   useEffect(() => {
     const fetchPendingRequests = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/pending-cashin-requests/${users.number}`);
+        const response = await axios.get(`https://mfs-server-xi.vercel.app/pending-cashin-requests/${users.number}`);
         setRequests(response.data);
         setLoading(false);
       } catch (error) {
@@ -52,11 +52,11 @@ const PendingCashInRequests = () => {
   const handleApprove = async (request) => {
     try {
       // Fetch the user by email
-      const userResponse = await axios.get(`http://localhost:5000/user/${request.userEmail}`);
+      const userResponse = await axios.get(`https://mfs-server-xi.vercel.app/user/${request.userEmail}`);
       const user = userResponse.data[0];
 
       // Update the user's balance
-      await axios.put(`http://localhost:5000/agent-cashin-approved/${request.userId}`, {
+      await axios.put(`https://mfs-server-xi.vercel.app/agent-cashin-approved/${request.userId}`, {
         balance: user?.balance +  parseFloat(request?.amount)
       });
 
@@ -80,13 +80,13 @@ const PendingCashInRequests = () => {
           // Update sender balance
           try {
                 // Fetch the user by email
-      const userResponse = await axios.get(`http://localhost:5000/user/${email}`);
+      const userResponse = await axios.get(`https://mfs-server-xi.vercel.app/user/${email}`);
       const agent = userResponse.data[0];
 
       // console.log(agent.balance);
       // console.log(parseFloat(request.amount));
 
-            await axios.put(`http://localhost:5000/amount/${agent?._id}`, {
+            await axios.put(`https://mfs-server-xi.vercel.app/amount/${agent?._id}`, {
               balance: agent.balance - parseFloat(request?.amount)
             }
           );
@@ -98,7 +98,7 @@ const PendingCashInRequests = () => {
 
   const handleReject = async (id) => {
     try {
-      await axios.put(`http://localhost:5000/agent-cashin-reject/${id}`,{status: "Reject"});
+      await axios.put(`https://mfs-server-xi.vercel.app/agent-cashin-reject/${id}`,{status: "Reject"});
 
       toast.warn('Cash In Rejected!', {
         position: "top-right",
@@ -125,18 +125,19 @@ const PendingCashInRequests = () => {
   }
 
   return (
-    <div className="container mx-auto px-4 py-6">
+    <div className="container mx-auto px-4 py-6 overflow-x-auto">
       <h1 className="text-2xl font-bold mb-4">Pending Cash-In Requests</h1>
       {requests.length === 0 ? (
         <div>No pending requests.</div>
       ) : (
-        <table className="min-w-full bg-white">
+        <table className="min-w-full bg-white overflow-x-auto">
           <thead className='bg-gray-800 rounded text-white'>
             <tr className=''>
               <th className="py-2">User Number</th>
               <th className="py-2">Amount</th>
               <th className="py-2 ">Date</th>
-              <th className="py-2">Actions</th>
+              <th className="py-2">Approved</th>
+              <th className="py-2">Rejected</th>
             </tr>
           </thead>
           <tbody>
@@ -152,6 +153,8 @@ const PendingCashInRequests = () => {
                   >
                     Approve
                   </button>
+                </td>
+                <td className="border w-52 text-center px-4 py-2   justify-items-end-end">
                   <button
                     className="bg-red-500 text-white px-4 py-2 rounded"
                     onClick={() => handleReject(request._id)}

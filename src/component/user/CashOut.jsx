@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../../provider/AuthProvider";
 import Swal from "sweetalert2";
+import { Typewriter } from "react-simple-typewriter";
 
 const CashOut = () => {
   const [sender, setSender] = useState("");
@@ -17,7 +18,7 @@ const CashOut = () => {
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/user/${email}`)
+      fetch(`https://mfs-server-xi.vercel.app/user/${email}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data[0]); // Checking fetched data
@@ -27,7 +28,7 @@ const CashOut = () => {
     }
 
     if (receiverNumber) {
-      fetch(`http://localhost:5000/user-number/${receiverNumber}`)
+      fetch(`https://mfs-server-xi.vercel.app/user-number/${receiverNumber}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data[0]); // Checking fetched data
@@ -55,7 +56,7 @@ const CashOut = () => {
   
     try {
       // Send money request
-      const response = await axios.post("http://localhost:5000/transections", {
+      const response = await axios.post("https://mfs-server-xi.vercel.app/transections", {
         senderNumber: sender.number,
         senderEmail: sender.email,
         receiverNumber,
@@ -74,7 +75,7 @@ const CashOut = () => {
 // Update sender balance
 try {
     const fee = parseFloat(amount) * 0.015; // Calculate 1.5% fee
-    await axios.put(`http://localhost:5000/amount/${sender?._id}`, {
+    await axios.put(`https://mfs-server-xi.vercel.app/amount/${sender?._id}`, {
       balance: sender.balance - parseFloat(amount) - fee,
       email: sender.email,
       pin,
@@ -85,7 +86,7 @@ try {
 
            // Update receiver balance
            try {
-            await axios.put(`http://localhost:5000/amount/${user?._id}`, {
+            await axios.put(`https://mfs-server-xi.vercel.app/amount/${user?._id}`, {
               balance: user?.balance + parseFloat(amount),
             });
           } catch (error) {
@@ -112,13 +113,24 @@ try {
   console.log(sender?.email);
 
   return (
-    <div className="flex items-center justify-center bg-gray-100 mt-5">
+    <div className="flex items-center justify-center bg-gray-100 mt-5" data-aos="fade-right">
       <div className="w-full  bg-white p-8 rounded-lg shadow-md">
-        <h1 className="text-3xl font-bold mb-6 text-center text-teal-400">Cash Out</h1>
-        <form onSubmit={handleCashOut} className="grid grid-cols-2 gap-10">
+        {/* <h1 className="text-3xl font-bold mb-6 text-center text-teal-400">Cash Out</h1> */}
+        <h1 className="text-pink-500 font-bold text-center text-4xl mb-20">
+        <Typewriter
+          words={[ 'Cash Out!']}
+          loop={5}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={10000}
+        />
+      </h1>
+        <form onSubmit={handleCashOut} className="grid lg:grid-cols-2 gap-10">
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-600">
-              Agent Mobile Number
+            <label className="block mb-2 text- font-medium text-gray-600">
+              Agent Number
             </label>
             <input
               type="text"
@@ -131,7 +143,7 @@ try {
             <p className="text-red">{user?.role !== 'Agent' ? <p className="text-red-500">Provide a valid Agent Number</p> :<p className="h-6"></p>}</p>
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className="block mb-2 text- font-medium text-gray-600">
               Agent Name
             </label>
             <input
@@ -144,7 +156,7 @@ try {
             />
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className="block mb-2 text- font-medium text-gray-600">
               Amount
             </label>
             <input
@@ -158,7 +170,7 @@ try {
             <p className="text-red-500">{amount < 10 ? <>Minimum transaction amount is 50. BDT</>: null}</p>
           </div>
           <div>
-            <label className="block mb-2 text-sm font-medium text-gray-600">
+            <label className="block mb-2 text- font-medium text-gray-600">
               Your Password
             </label>
             <input
@@ -172,7 +184,7 @@ try {
           </div>
           <button
             type="submit"
-            className="w-full col-span-2 bg-[#ff1bc6] text-white btn rounded-md"
+            className="w-full lg:col-span-2 bg-[#ff1bc6] text-white btn rounded-md"
             disabled={user?.role !== 'Agent' || amount < 10 || pin.length <5}
           >
             Conform

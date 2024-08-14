@@ -15,7 +15,7 @@ const UserDashboard = () => {
   useEffect(() => {
     const fetchData = () => {
       if (email) {
-        fetch(`http://localhost:5000/user/${email}`)
+        fetch(`https://mfs-server-xi.vercel.app/user/${email}`)
           .then(res => res.json())
           .then(data => {
             console.log(data[0]); // Checking fetched data
@@ -30,30 +30,38 @@ const UserDashboard = () => {
     const interval = setInterval(() => {
       setShowBalance(false); 
       fetchData(); // Fetch data every 5 minutes (300000 ms)
-    }, 4000);
+    }, 8000);
 
     return () => clearInterval(interval); // Clear interval on component unmount
   }, [email]);
 
 
+  const truncateText = (text, maxLength) => {
+    if (text?.length <= maxLength) {
+      return text;
+    }
+    return text?.slice(0, maxLength) + "...";
+  };
 
   return (
     <div className="">
-<section className="lg:hidden ">
+<section className="lg:hidden">
+<div className="">
 <div className="bg-[#ff1bc6] text-white w-full h- rounded-b-lg py-3 mb-">
    <div className="flex justify-between px-2 ">
 
  <div className="flex gap-2 items-center">
- <FaUser className="text-5xl border border-1 p-1 rounded-full"></FaUser>
- <div className="">
-   <h1 className="text-2xl ">{user?.name}</h1>
+<div className="flex items-center gap-1">
+<FaUser className="text-4xl border border-1 p-1 rounded-full w-12"></FaUser>
+<h1 className="text-2xl w-full">{truncateText(user?.name, 6) }</h1>
+</div>
    <div 
    onClick={()=>setShowBalance(!showBalance)}
-    className="rounded-full w-[119px]  bg-white text-red-500 px-1 text-sm py- flex items-center text-center">
-      <FaSearchDollar className={`transition-transform duration-500 ${showBalance ? 'translate-x-[94px]' : 'translate-x-0'} text-left`}></FaSearchDollar>
+    className="rounded-full w-[140px]  bg-white text-red-500 px-[5px] text-sm py-[3px] flex items-center text-center">
+      <FaSearchDollar className={`transition-transform duration-500 ${!showBalance ? 'translate-x-[115px]' : 'translate-x-0'} text-left`}></FaSearchDollar>
       {showBalance ?  <span className="flex items-center text-center px-5 ">{user?.balance} </span>:<div className="flex items-center "> Check balance</div> }
       </div>
-   </div>
+  
 
  </div>
    <LogoutButton></LogoutButton>
@@ -61,13 +69,14 @@ const UserDashboard = () => {
       </div>
       
       <div className="grid justify-items-center grid-cols-4 gap-4 px- mx-auto lg:hidden  py-4 shadow">
-        <Link to="/user-dashboard/user-wellcome" className="text-center" ><img className="w-12 rounded" src="/cashin.png"     alt="" /><p className="text-sm">cash In</p> </Link>
-        <Link to="/user-dashboard/send-money" className="text-center" ><img className="w-12 rounded" src="/sendmoney.png"  alt="" /><p className="text-sm">send money</p> </Link>
-        <Link to="/user-dashboard/cash-out" className="text-center" ><img className="w-12 rounded" src="/cashout.png"    alt="" /><p className="text-sm">cash out</p> </Link>
-        <Link to="/user-dashboard/history" className="text-center" ><img className="w-12 rounded" src="/history.png"    alt="" /><p className="text-sm">history</p> </Link>
+        <Link to="/user-dashboard/user-wellcome" className="text-center" ><img className="w-12 rounded hover:-translate-y-1" src="/cashin.png"     alt="" /><p className="text-sm">cash In</p> </Link>
+        <Link to="/user-dashboard/send-money" className="text-center" ><img className="w-12 rounded hover:-translate-y-1" src="/sendmoney.png"  alt="" /><p className="text-sm">send money</p> </Link>
+        <Link to="/user-dashboard/cash-out" className="text-center" ><img className="w-12 rounded hover:-translate-y-1" src="/cashout.png"    alt="" /><p className="text-sm">cash out</p> </Link>
+        <Link to="/user-dashboard/history" className="text-center" ><img className="w-12 rounded hover:-translate-y-1" src="/history.png"    alt="" /><p className="text-sm">history</p> </Link>
         
       </div>
-   <div>
+</div>
+   <div className="">
     <Outlet></Outlet>
     </div>
 </section>

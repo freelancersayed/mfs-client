@@ -4,13 +4,15 @@ import { FaSearch } from "react-icons/fa";
 import { toast, ToastContainer } from "react-toastify";
 import Swal from "sweetalert2";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import useAxiosPublic from "../../hooks/useAxiosPublic";
+// import useAxiosPublic from "../../hooks/useAxiosPublic";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const Alluser = () => {
   const [searchTerm, setSearchTerm] = useState([]);
   const [users, setUser] = useState(searchTerm);
-  const axiosPublic = useAxiosPublic();
+  // const axiosPublic = useAxiosPublic();
+  const axiosPublic = useAxiosSecure();
   const queryClient = useQueryClient();
 
   // Fetch all users
@@ -19,6 +21,7 @@ const Alluser = () => {
     queryFn: async () => {
       const res = await axiosPublic.get("/all-users");
       setUser(res.data);
+      console.log(res.data);
       return res.data;
     },
   });
@@ -32,6 +35,7 @@ const Alluser = () => {
         try {
           const response = await axiosPublic.get(`/search-users?searchTerm=${searchTerm}`);
           setUser(response.data);
+          console.log(response.data);
         } catch (error) {
           console.error("Error fetching data:", error);
         }
@@ -70,7 +74,7 @@ const Alluser = () => {
 
   const handleStatusChange = async (user, newStatus) => {
     try {
-        await axios.put(`http://localhost:5000/update-status/${user._id}`, {status: newStatus});
+        await axios.put(`https://mfs-server-xi.vercel.app/update-status/${user._id}`, {status: newStatus});
 
 
         refetch(); // Refresh the users data
@@ -122,7 +126,7 @@ const Alluser = () => {
                <td className="py-2 w-60 border-b ">{user.name}</td>
                <td className="py-2 w-60 border-b">{user.email}</td>
                <td className="py-2 w-60 border-b">
-                 {user.role} {user.balance}
+                 {user.role}
                  <select
                    className="w-4 mt-1 ml-1"
                    // value={user.role}

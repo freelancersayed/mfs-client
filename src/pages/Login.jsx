@@ -3,13 +3,13 @@ import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../provider/AuthProvider';
-import useAxiosPublic from '../hooks/useAxiosPublic';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 import { Link, useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
   const [error, setError] = useState('');
   const { setEmail, setNumber, } = useContext(AuthContext); 
-  const axiosPublic = useAxiosPublic();
+  const axiosSecure = useAxiosSecure();
 
   const naviget = useNavigate()
 
@@ -24,7 +24,7 @@ const LoginForm = () => {
 
     try {
       // Check if the user exists and get status
-      const res = await axios.get(`http://localhost:5000/user-login/${email}`);
+      const res = await axios.get(`https://mfs-server-xi.vercel.app/user-login/${email}`);
       const userData = res.data[0]; // Assuming only one user is returned
       if (!userData) {
         throw new Error('User not found');
@@ -38,7 +38,7 @@ const LoginForm = () => {
       setNumber(userData.number);
 
       // Authenticate user
-      const response = await axiosPublic.post('/login', { email, pin });
+      const response = await axiosSecure.post('/login', { email, pin });
       const { token } = response.data;
       localStorage.setItem('auth-token', token);
 
@@ -51,17 +51,22 @@ const LoginForm = () => {
       });
 
        // Fetch the user by email
-       const userResponse = await axios.get(`http://localhost:5000/user-login/${email}`);
+       const userResponse = await axios.get(`https://mfs-server-xi.vercel.app/user-login/${email}`);
        const user = userResponse.data[0];
 
-       if (user.role === 'Admin') {
+       if(user.status === 'Pending'){
+        naviget("/waiting")
+        return
+       }
+
+       if (user.role === 'admin') {
         naviget("/admin-dashboard/admin")
         return
-       }else if (user.role === 'Agent') {
+       }else if (user.role === 'agent') {
         naviget("/agent-dashboard")
         return
-       }else if (user.role === 'User') {
-        naviget("/user-dashboard")
+       }else if (user.role === 'user' && user.status === 'Conform') {
+        naviget("/user-dashboard/user-well")
         return
        }
 
@@ -73,6 +78,7 @@ const LoginForm = () => {
       setError('Login failed. Please check your credentials and try again.');
     }
   };
+
 
   return (
     <div className=" justify-center bg-gray- pt-10">

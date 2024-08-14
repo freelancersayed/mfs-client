@@ -22,7 +22,7 @@ const PendingAgent = () => {
 
     const handleStatusChange = async (user, newStatus) => {
       try {
-          await axios.put(`http://localhost:5000/update-status/${user._id}`, {status: newStatus, balance: user.balance+1000});
+          await axios.put(`https://mfs-server-xi.vercel.app/update-status/${user._id}`, {status: newStatus, balance: user.balance+1000});
 
 
           refetch(); // Refresh the users data
@@ -59,7 +59,7 @@ const PendingAgent = () => {
                <td className="py-2 w-60 border-b px-5">{user.name}</td>
                <td className="py-2 w-60 border-b">{user.email}</td>
                <td className="py-2 w-60 border-b">
-                 {user.role} {user.balance}
+                 {user.role} 
                  <select
                    className="w-4 mt-1 ml-1"
                    // value={user.role}

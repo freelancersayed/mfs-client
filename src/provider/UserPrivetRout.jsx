@@ -10,7 +10,7 @@ const UserPrivetRout = ({children}) => {
 
     useEffect(() => {
         if (email) {
-            fetch(`http://localhost:5000/user/${email}`)
+            fetch(`https://mfs-server-xi.vercel.app/user/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     console.log(data[0]); // Checking fetched data
@@ -27,7 +27,7 @@ const UserPrivetRout = ({children}) => {
     if(!user){
         return <div className='w-full mx-auto items-center justify-center flex'><span className="loading loading-bars loading-lg min-h-screen"></span></div>
     }
-if(user?.role === 'User'){
+if(user?.role === 'user' && user.status === 'Conform'){
     return children;
 }
 return <div><img src="/sorry.png" alt="" /></div>

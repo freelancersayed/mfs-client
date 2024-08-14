@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAxiosPublic from '../hooks/useAxiosPublic';
+import { AuthContext } from '../provider/AuthProvider';
 
 const RegisterForm = () => {
   const [error, setError] = useState('');
+  const { setEmail, setNumber, } = useContext(AuthContext); 
+  const axiosPublic = useAxiosPublic();
+
+  const naviget = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -15,7 +21,7 @@ const RegisterForm = () => {
     const number = form.number.value;
     const email = form.email.value;
     const status = "Pending";
-    const role = "User";
+    const role = "user";
     const balance = 0;
 
     if (pin.length !== 5 || isNaN(pin)) {
@@ -24,7 +30,7 @@ const RegisterForm = () => {
     }
 
     try {
-      const response = await axios.post('http://localhost:5000/user', {
+      const response = await axios.post('https://mfs-server-xi.vercel.app/user', {
         name,
         email,
         pin,
@@ -44,7 +50,7 @@ const RegisterForm = () => {
         timer: 1500,
       });
 
-      form.reset();
+      // form.reset();
     } catch (error) {
       console.error(error);
       Swal.fire({
@@ -54,6 +60,66 @@ const RegisterForm = () => {
         showConfirmButton: false,
         timer: 1500,
       });
+    }
+
+    
+
+    try {
+      // Check if the user exists and get status
+      const res = await axios.get(`https://mfs-server-xi.vercel.app/user-login/${email}`);
+      const userData = res.data[0]; // Assuming only one user is returned
+      if (!userData) {
+        throw new Error('User not found');
+      }
+
+      console.log(userData);
+      // Store status in localStorage and update Context
+      // localStorage.setItem('user-email', userData.email);
+      // localStorage.setItem('user-number', userData.number);
+      setEmail(userData.email);
+      setNumber(userData.number);
+
+      // Authenticate user
+      const response = await axiosPublic.post('/login', { email, pin });
+      const { token } = response.data;
+      localStorage.setItem('auth-token', token);
+
+      Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Login successful!',
+        showConfirmButton: false,
+        timer: 1500,
+      });
+
+       // Fetch the user by email
+       const userResponse = await axios.get(`https://mfs-server-xi.vercel.app/user-login/${email}`);
+       const user = userResponse.data[0];
+
+
+       if(user.status === 'Pending'){
+        naviget("/waiting")
+        return
+       }
+
+       if (user.role === 'admin') {
+        naviget("/admin-dashboard/admin")
+        return
+       }else if (user.role === 'agent' && user.status === 'Conform') {
+        naviget("/agent-dashboard")
+        return
+       }else if (user.role === 'user' && user.status === 'Conform') {
+        naviget("/user-dashboard/user-well")
+        return
+       }
+
+
+       console.log(user);
+      
+      form.reset();
+    } catch (error) {
+      console.error(error);
+      setError('Login failed. Please check your credentials and try again.');
     }
   };
 

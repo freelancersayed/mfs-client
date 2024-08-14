@@ -3,6 +3,10 @@ import { FaHome } from 'react-icons/fa';
 import { Link, NavLink, Outlet } from 'react-router-dom';
 import { AuthContext } from '../../provider/AuthProvider';
 import LogoutButton from '../../pages/LogOute';
+import { IoIosTransgender } from 'react-icons/io';
+import { RiPassPendingFill, RiPassPendingLine } from 'react-icons/ri';
+import { ImBlocked } from 'react-icons/im';
+import { MdOutlinePersonalInjury, MdSupportAgent } from 'react-icons/md';
 
 const AdminMainDashboard = () => {
 
@@ -13,7 +17,7 @@ const AdminMainDashboard = () => {
   useEffect(() => {
     const fetchData = () => {
       if (email) {
-        fetch(`http://localhost:5000/user/${email}`)
+        fetch(`https://mfs-server-xi.vercel.app/user/${email}`)
           .then(res => res.json())
           .then(data => {
             console.log(data[0]); // Checking fetched data
@@ -38,15 +42,15 @@ const AdminMainDashboard = () => {
             {/* Sidebar */}
             <aside className="min-w-60 bg-gray-800 text-white hidden lg:block">
                 <div className="p-4 text-xl font-semibold border-b border-gray-700">Admin Dashboard</div>
-                <nav className="mt-4">
-                <div className="text-white flex flex-col gap-5 py-4 px-  active">
+                <nav className="mt-4 ">
+                <div className="text-white flex flex-col gap-5 py-4 px-  admin">
                 <NavLink to="/admin-dashboard/admin"  className="hover:bg-slate-400">   <button className="flex items-center gap-2 text- py-2 pl-5 "><FaHome></FaHome>  Dashboard</button></NavLink>
-                <NavLink to="/admin-dashboard/admin/all-users"  className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><FaHome></FaHome>  Personal</button></NavLink>
-                <NavLink to="/admin-dashboard/admin/all-agent"  className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><FaHome></FaHome>  Agent</button></NavLink>
-                <NavLink to="/admin-dashboard/admin/transection"  className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><FaHome></FaHome>  Transection History</button></NavLink>
-                <NavLink to="/admin-dashboard/admin/pending-users" className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><FaHome></FaHome>  Pending Users</button></NavLink>
-                <NavLink to="/admin-dashboard/admin/pending-agent" className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><FaHome></FaHome>  Pending Agent</button></NavLink>
-                <NavLink  to="/admin-dashboard/admin/block" className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><FaHome></FaHome>  Block Users</button></NavLink>
+                <NavLink to="/admin-dashboard/admin/all-users"  className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><MdOutlinePersonalInjury />  Personal</button></NavLink>
+                <NavLink to="/admin-dashboard/admin/all-agent"  className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><MdSupportAgent />  Agent</button></NavLink>
+                <NavLink to="/admin-dashboard/admin/transection"  className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><IoIosTransgender />  Transection History</button></NavLink>
+                <NavLink to="/admin-dashboard/admin/pending-users" className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><RiPassPendingLine />  Pending Users</button></NavLink>
+                <NavLink to="/admin-dashboard/admin/pending-agent" className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><RiPassPendingFill /> Pending Agent</button></NavLink>
+                <NavLink  to="/admin-dashboard/admin/block" className="hover:bg-slate-400" >   <button className="flex items-center gap-2 text- py-2 pl-5 "><ImBlocked />  Block Users</button></NavLink>
          
           </div>
             </nav>

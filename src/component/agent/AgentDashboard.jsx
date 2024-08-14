@@ -16,7 +16,7 @@ const AgentDashboard = () => {
   useEffect(() => {
     const fetchData = () => {
       if (email) {
-        fetch(`http://localhost:5000/user/${email}`)
+        fetch(`https://mfs-server-xi.vercel.app/user/${email}`)
           .then(res => res.json())
           .then(data => {
             // console.log(data[0]);
@@ -37,6 +37,13 @@ const AgentDashboard = () => {
   }, [email]);
 
 
+  const truncateText = (text, maxLength) => {
+    if (text?.length <= maxLength) {
+      return text;
+    }
+    return text?.slice(0, maxLength) + "...";
+  };
+
     return (
         <div className="min-h-screen lg:flex-row flex flex-col">
 
@@ -44,7 +51,7 @@ const AgentDashboard = () => {
 
 {/* Lg device */}
             {/* Sidebar */}
-            <aside className="w-64 bg-gray-800 text-white hidden min-h-screen fixed lg:block">
+            <aside className="w- bg-gray-800 text-white hidden min-h-screen fixed lg:block">
                 <div className="p-4 text-xl font-semibold border-b border-gray-700">Agent Portal</div>
                 <nav className="mt-4">
                 <div className="text-white flex flex-col gap-5 py-4 px-  active">
@@ -65,7 +72,7 @@ const AgentDashboard = () => {
                     <div className="flex justify-between items-center">
                         <div className='flex items-center gap-2'>
                     <div className='h-12 w-12 rounded-full overflow-hidden'>
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiXSUEG_6rkQjPcaarR4cm6-BNbGF9df7zGg&s" alt="" />
+                    <FaUser className="text-5xl border border-1 p-1 rounded-full"></FaUser>
                     </div>
                     <h1 className="text-2xl font-semibold">{user?.name}</h1>
                         </div>
@@ -89,16 +96,16 @@ const AgentDashboard = () => {
    <div className="flex  justify-between px-2 ">
 
  <div className="flex gap-2 items-center">
- <FaUser className="text-5xl border border-1 p-1 rounded-full"></FaUser>
-   <div className="">
-   <h1 className="text-2xl ">{user?.name}</h1>
+ <div className="flex items-center w-48 gap-1">
+<FaUser className="text-5xl border border-1 p-1 rounded-full"></FaUser>
+<h1 className="text-2xl ">{truncateText(user?.name, 10) }</h1>
+</div>
    <div 
    onClick={()=>setShowBalance(!showBalance)}
-    className="rounded-full w-[119px]  bg-white text-red-500 px-1 text-sm py- flex items-center text-center cursor-pointer">
-      <FaDollarSign className={`transition-transform duration-500 ${showBalance ? 'translate-x-[94px]' : 'translate-x-0'} text-left`}></FaDollarSign>
+    className="rounded-full w-[162px]  bg-white text-red-500 px-[5px] text py-[3px] flex items-center text-center">
+      <FaSearchDollar className={`transition-transform duration-500 ${showBalance ? 'translate-x-[94px]' : 'translate-x-0'} text-left`}></FaSearchDollar>
       {showBalance ?  <span className="flex items-center text-center px-5 ">{user?.balance} </span>:<div className="flex items-center "> Check balance</div> }
       </div>
-   </div>
 
  </div>
  <LogoutButton></LogoutButton>

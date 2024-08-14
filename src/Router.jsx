@@ -32,16 +32,24 @@ import AdminPrivetRout from "./provider/AdminPrivetRout";
 import AgentPriverRout from "./provider/AgentPrivetRout";
 import UserPrivetRout from "./provider/UserPrivetRout";
 import AdminMainDashboard from "./component/Admin/AdminMainDashboard";
+import UserWel from "./component/user/UserWel";
+import WaitingPage from "./pages/WaitingPage";
+import ErrorPage from "./pages/ErrorPage";
 
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <Home></Home>,
+    errorElement: <ErrorPage></ErrorPage>,
     children: [
       {
         path: "/",
         element: <LandingPage></LandingPage>
+      },
+      {
+        path: "/error",
+        element: <ErrorPage></ErrorPage>
       },
       {
         path: "/reg-dashboard",
@@ -100,6 +108,10 @@ export const router = createBrowserRouter([
         path: "/user-dashboard",
         element: <UserPrivetRout><UserDashboard></UserDashboard></UserPrivetRout>,
         children: [
+          {
+            path: "/user-dashboard/user-well",
+            element: <UserWel></UserWel>
+          },
             {
                 path: "/user-dashboard/user-wellcome",
                 element: <CashInPage></CashInPage>
@@ -117,6 +129,10 @@ export const router = createBrowserRouter([
                 element: <UserTransHistory></UserTransHistory>
             },
         ]
+      },
+      {
+        path:"/waiting",
+        element: <WaitingPage></WaitingPage>
       },
       {
         path: "/agent-dashboard",

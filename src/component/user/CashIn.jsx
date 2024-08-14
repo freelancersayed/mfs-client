@@ -2,6 +2,11 @@ import React, { useState, useContext, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { AuthContext } from '../../provider/AuthProvider';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { Typewriter } from 'react-simple-typewriter';
+
+
 
 const CashInPage = () => {
   const [amount, setAmount] = useState('');
@@ -12,7 +17,7 @@ const CashInPage = () => {
 
   useEffect(() => {
     if (email) {
-      fetch(`http://localhost:5000/user/${email}`)
+      fetch(`https://mfs-server-xi.vercel.app/user/${email}`)
         .then((res) => res.json())
         .then((data) => {
           console.log(data[0]); // Checking fetched data
@@ -28,7 +33,7 @@ const CashInPage = () => {
   const handleCashIn = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/cashin", {
+      const response = await axios.post("https://mfs-server-xi.vercel.app/cashin", {
         amount: parseFloat(amount),
         email,
         agentNumber: agent
@@ -59,7 +64,7 @@ const CashInPage = () => {
 
     try {
         // Send money request
-        const response = await axios.post("http://localhost:5000/transections", {
+        const response = await axios.post("https://mfs-server-xi.vercel.app/transections", {
           senderNumber: sender.number,
           senderEmail: sender.email,
           agentEmail: sender.email,
@@ -74,10 +79,25 @@ const CashInPage = () => {
     }  
   };
 
+  useEffect(() => {
+    AOS.init();
+  }, []);
+
   return (
-    <div className="flex mt-10 items-center justify-center bg-gray-00 lg:px-20 px-5">
+    <div className="flex mt-10 items-center justify-center bg-gray-00 lg:px-20 px-5" data-aos="fade-right">
       <div className="bg-gray-0  p-8 rounded-lg shadow px-5 w-full">
-        <h2 className="text-3xl font-bold mb-6 text-center text-teal-400">Cash In</h2>
+        {/* <h2 className="text-3xl font-bold mb-6 text-center text-teal-400">Cash In</h2> */}
+        <h1 className="text-4xl font-bold mb-20 text-center text-teal-400">
+        <Typewriter
+          words={[ 'Cash-In!']}
+          loop={5}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={10000}
+        />
+      </h1>
         <form onSubmit={handleCashIn} className="space-y-4">
           <div>
             <label className="block font-bold">Agent Number</label>

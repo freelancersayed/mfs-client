@@ -3,6 +3,17 @@
 @tailwind utilities;
 
 
+body {
+    font-family: 'Roboto', sans-serif;
+  }
+  .font {
+    font-family: "Stylish", serif;
+    /* font-weight: 800; */
+    font-style: normal;
+  }
+  
+  
+
 .nav .active{   
     /* border-bottom: 1px solid rgb(255, 4, 171); */
     background-color: rgba(255, 0, 149, 0.897); 
@@ -20,4 +31,7 @@
 
 .active-1 .active{
     border: 1px solid rgb(212, 211, 211);
+}
+.admin .active{
+    background-color: rgba(128, 128, 128, 0.521);
 }

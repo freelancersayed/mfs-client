@@ -9,7 +9,7 @@ const AllTransection = () => {
   
     useEffect(() => {
       if (email) {
-        axios.get('http://localhost:5000/trans')
+        axios.get('https://mfs-server-xi.vercel.app/trans')
           .then(response => setTransactions(response.data))
           .catch(error => console.error('Error fetching transactions:', error));
       }
@@ -48,7 +48,7 @@ const AllTransection = () => {
              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                {transaction.amount}
              </td>
-             <td className={transaction.type === "cashIn" ? "text-green-500 px-5 py-5 border-y border-gray-200 bg-white text-sm": transaction.type === "cashOut" ? "text-red-500 px-5 py-5 border-y border-gray-200 bg-white text-sm":"border-gray-200 border-y bg-white text-sm"}>
+             <td className={transaction.type === "cashIn" ? "text-green-500 px-5 py-5 border-y border-gray-200 bg-white text-sm": transaction.type === "sendMoney" ? "text-blue-500 px-5 py-5 border-y border-gray-200 bg-white text-sm": transaction.type === "cashOut" ? "text-red-500 px-5 py-5 border-y border-gray-200 bg-white text-sm":"border-gray-200 border-y bg-white text-sm"}>
                {transaction.type}
              </td>
              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">

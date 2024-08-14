@@ -2,6 +2,7 @@
 import  { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../provider/AuthProvider';
+import { Typewriter } from 'react-simple-typewriter';
 
 const UserTransHistory = () => {
     const [transactions, setTransactions] = useState([]);
@@ -9,7 +10,7 @@ const UserTransHistory = () => {
   
     useEffect(() => {
       if (email) {
-        axios.get(`http://localhost:5000/transections/${email}`)
+        axios.get(`https://mfs-server-xi.vercel.app/transections/${email}`)
           .then(response => setTransactions(response.data))
           .catch(error => console.error('Error fetching transactions:', error));
       }
@@ -18,10 +19,21 @@ const UserTransHistory = () => {
     console.log(transactions);
     console.log(email);
     return (
-      <div className="min-h-screen bg-gray-100 py-10">
+      <div className="min-h-screen bg-gray-100 py-10" data-aos="fade-left">
         <div className="container mx-auto px-4">
-          <h1 className="text-3xl font-bold text-center mb-8">Transaction History</h1>
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          {/* <h1 className="text-3xl font-bold text-center mb-8">Transaction History</h1> */}
+          <h1 className="text-pink-500 font-bold text-center text-4xl mb-10">
+        <Typewriter
+          words={[ 'Transaction History!']}
+          loop={5}
+          cursor
+          cursorStyle="_"
+          typeSpeed={70}
+          deleteSpeed={50}
+          delaySpeed={10000}
+        />
+      </h1>
+          <div className="bg-white shadow-md rounded-lg overflow-x-auto">
             <table className="min-w-full bg-white">
               <thead className="bg-gray-800 text-white">
                 <tr>
@@ -34,9 +46,9 @@ const UserTransHistory = () => {
               </thead>
               <tbody className="text-gray-700">
                 {transactions.map((transaction, index) => (
-             <tr key={transaction._id}>
+             <tr key={transaction._id} data-aos="fade-right">
              
-             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+             <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm" >
                {transaction._id}
              </td>
              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">

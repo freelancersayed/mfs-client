@@ -9,7 +9,7 @@ const AgentTransHistory = () => {
   
     useEffect(() => {
       if (email) {
-        axios.get(`http://localhost:5000/transections/${email}`)
+        axios.get(`https://mfs-server-xi.vercel.app/transections/${email}`)
           .then(response => setTransactions(response.data))
           .catch(error => console.error('Error fetching transactions:', error));
       }
@@ -21,7 +21,7 @@ const AgentTransHistory = () => {
       <div className="min-h-screen bg-gray-100 py-10">
         <div className="container mx-auto px-4">
           <h1 className="text-3xl font-bold text-center mb-8">Transaction History</h1>
-          <div className="bg-white shadow-md rounded-lg overflow-hidden">
+          <div className="bg-white shadow-md rounded-lg overflow-x-auto">
             <table className="min-w-full bg-white">
               <thead className="bg-gray-800 text-white">
                 <tr>
@@ -44,7 +44,7 @@ const AgentTransHistory = () => {
                {transaction._id}
              </td>
              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-               {transaction.receiverNumber}
+               {transaction.senderNumber}
              </td>
              <td className="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                {transaction.amount}
