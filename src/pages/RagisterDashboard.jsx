@@ -8,7 +8,7 @@ const RagisterDashboard = () => {
                 <h1 className='text-4xl font-bold text-center mt-5 mb-10 text-teal-500'>Wellcom E-Cash Registration</h1>
                 <div className='flex  w-full mx-auto justify-center reg-dash'>
                     <NavLink  className='px-20 py-6 text-xl font-bold text-[#fd10b6] hover:translate-x-1 shadow-md border-t w-full text-center' to="/reg-dashboard/us-register">User Registration</NavLink>
-                    <NavLink  className='px-20 py-6 text-xl font-bold text-[#fd10b6] hover:text hover:translate-x-1 shadow-md border-t w-full text-center' to="/reg-dashboard/ag-register">Agent Registration</NavLink>
+                <NavLink  className='px-20 py-6 text-xl font-bold text-[#fd10b6] hover:text hover:translate-x-1 shadow-md border-t w-full text-center' to="/reg-dashboard/ag-register">Agent Registration</NavLink>
                 </div>
             </div>
             <Outlet></Outlet>

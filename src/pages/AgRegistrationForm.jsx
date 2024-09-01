@@ -58,20 +58,22 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div className='flex justify-center max-w-[1280px] mx-auto bg-gray-100 min-h-screen'>
-      <div className='w-96 mx-auto bg-white px-5 py-10 rounded border border-[#fd10b6]  shadow-md mt-20 h-full'>
-      <img className='w-12 h-12 rounded-full mx-auto' src="" alt="" />
-        <h1 className='text-center pb-10 text-3xl'>Agent Register</h1>
-        {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+    <div className='md:flex  max-w-[1280px] rounded  md:mx-auto shadow-lg overflow-hidden flex-row-reverse mx-4'>
+      <div className=''>
+        <img className='w-full md:h-[520px] h-60' src=" https://img.freepik.com/premium-vector/business-analytics-dashboard-with-people_662093-240.jpg" alt="" />
+      </div>
+      <div className='w-96 mx-auto bg-white rounded py-10 px-5'>
+        <h1 className='text-center pb-10 text-3xl text-teal-600'>Agent Register</h1>
+        {error && <div className="text-red-500 mb-4">{error}</div>}
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4 space-y-5'>
           <input className='border bg-gray-50 p-1 rounded' type="text" placeholder='Name' name="name" required />
           <input className='border bg-gray-50 p-1 rounded' type="text" placeholder='5-digit PIN' name="pin" required />
           <input className='border bg-gray-50 p-1 rounded' type="number" placeholder='Number' name="number" required />
           <input className='border bg-gray-50 p-1 rounded' type="email" placeholder='Email' name="email" required />
-          <button className='border bg-blue-400 p-1 rounded' type="submit">Register</button>
+          <button className='border bg-teal-500 text-white p-1 rounded' type="submit">Register</button>
         </form>
         <div className='mt-5'>
-   <Link to="/login" className='text-blue-600 hover:underline pt-5'><span className='text-black'>All Ready have an account please</span> Login</Link>
+   <Link to="/login" className='text-blue-600 hover:underline text-sm pt-5'><span className='text-black'>All Ready have an account please</span> Login</Link>
    </div>
       </div>
     </div>

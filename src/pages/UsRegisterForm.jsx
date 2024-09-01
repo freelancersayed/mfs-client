@@ -124,20 +124,22 @@ const RegisterForm = () => {
   };
 
   return (
-    <div className='flex justify-center max-w-[1280px] mx-auto bg-gray-100 min-h-screen'>
-      <div className='w-96 mx-auto bg-white px-5 py-10 rounded border border-[#fd10b6] shadow-md mt-20 h-full'>
-      <img className='w-12 h-12 rounded-full mx-auto' src="" alt="" />
-        <h1 className='text-center pb-10 text-3xl '>User Register</h1>
+    <div className='lg:flex md:flex justify-center max-w-[1280px] rounded  mx-auto shadow-lg overflow-hidden'>
+      <div className=''>
+        <img className='w-full md:h-[520px] h-60' src="https://img.freepik.com/premium-vector/online-education-learning-concept-with-students_662093-225.jpg" alt="" />
+      </div>
+      <div className='w-96 mx-auto bg-white rounded py-10 px-5'>
+        <h1 className='text-center pb-10 text-3xl text-pink-500 '>User Register</h1>
         {error && <div className="text-red-500 text-center mb-4">{error}</div>}
-        <form onSubmit={handleSubmit} className='flex flex-col gap-4'>
+        <form onSubmit={handleSubmit} className='flex flex-col gap-4 space-y-5'>
           <input className='border bg-gray-50 p-1 rounded' type="text" placeholder='Name' name="name" required />
           <input className='border bg-gray-50 p-1 rounded' type="text" placeholder='5-digit PIN' name="pin" required />
           <input className='border bg-gray-50 p-1 rounded' type="number" placeholder='Number' name="number" required />
           <input className='border bg-gray-50 p-1 rounded' type="email" placeholder='Email' name="email" required />
-          <button className='border bg-blue-400 p-1 rounded' type="submit">Register</button>
+          <button className='border bg-pink-500 text-white p-1 rounded' type="submit">Register</button>
         </form>
         <div className='mt-5'>
-   <Link to="/login" className='text-blue-600 hover:underline pt-5'><span className='text-black'>All Ready have an account please</span> Login</Link>
+   <Link to="/login" className='text-blue-600 hover:underline text-sm pt-5'><span className='text-black'>All Ready have an account please</span> Login</Link>
    </div>
       </div>
     </div>

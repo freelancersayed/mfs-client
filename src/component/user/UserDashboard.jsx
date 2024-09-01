@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
-import { FaBalanceScale, FaDollarSign, FaHome, FaSearchDollar } from "react-icons/fa";
+import { FaBalanceScale, FaDollarSign, FaHome, FaSearchDollar, FaSeedling } from "react-icons/fa";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import useAxiosPublic from "../../hooks/useAxiosPublic";
 import LogoutButton from "../../pages/LogOute";
 import { AuthContext } from "../../provider/AuthProvider";
 import { FaScaleBalanced, FaUser } from "react-icons/fa6";
+import { LuSend } from "react-icons/lu";
+import { BsCashCoin } from "react-icons/bs";
+import { FcMoneyTransfer } from "react-icons/fc";
 
 const UserDashboard = () => {
 
@@ -69,7 +72,7 @@ const UserDashboard = () => {
       </div>
       
       <div className="grid justify-items-center grid-cols-4 gap-4 px- mx-auto lg:hidden  py-4 shadow">
-        <Link to="/user-dashboard/user-wellcome" className="text-center" ><img className="w-12 rounded hover:-translate-y-1" src="/cashin.png"     alt="" /><p className="text-sm">cash In</p> </Link>
+        <Link to="/user-dashboard/user-wellcome" className="text-center rounded" ><img className="w-12 hover:-translate-y-1" src="/cashin.png"     alt="" /><p className="text-sm">cash In</p> </Link>
         <Link to="/user-dashboard/send-money" className="text-center" ><img className="w-12 rounded hover:-translate-y-1" src="/sendmoney.png"  alt="" /><p className="text-sm">send money</p> </Link>
         <Link to="/user-dashboard/cash-out" className="text-center" ><img className="w-12 rounded hover:-translate-y-1" src="/cashout.png"    alt="" /><p className="text-sm">cash out</p> </Link>
         <Link to="/user-dashboard/history" className="text-center" ><img className="w-12 rounded hover:-translate-y-1" src="/history.png"    alt="" /><p className="text-sm">history</p> </Link>
@@ -96,9 +99,9 @@ const UserDashboard = () => {
           <div className="text-white flex flex-col gap-5 py-4 px-  nav">
           {/* <NavLink to="/user-dashboard/user-wellcome" className="hover:bg-[#ff3fa9]"><button className="flex items-center gap-2 text- py-2 pl-5 active:bg-black"><FaHome></FaHome> Home</button></NavLink> */}
       <NavLink to="/user-dashboard/user-wellcome" className="hover:bg-[#ff3fa9]"><button className="flex items-center gap-2 text- py-2 pl-5 active:bg-black"><FaHome></FaHome> Cash In</button></NavLink>
-      <NavLink to="/user-dashboard/send-money" className="hover:bg-[#ff3fa9]"> <button className="flex items-center gap-2 text-  py-2 pl-5 "><FaHome></FaHome>  Send Money</button></NavLink>
-      <NavLink to="/user-dashboard/cash-out" className="hover:bg-[#ff3fa9]"> <button className="flex items-center gap-2 text-  py-2 pl-5 "><FaHome></FaHome>  Cash Out</button></NavLink>
-      <NavLink to="/user-dashboard/history" className="hover:bg-[#ff3fa9]"> <button className="flex items-center gap-2 text-  py-2 pl-5 "><FaHome></FaHome> Transaction history</button></NavLink>
+      <NavLink to="/user-dashboard/send-money" className="hover:bg-[#ff3fa9]"> <button className="flex items-center gap-2 text-  py-2 pl-5 "><LuSend/>  Send Money</button></NavLink>
+      <NavLink to="/user-dashboard/cash-out" className="hover:bg-[#ff3fa9]"> <button className="flex items-center gap-2 text-  py-2 pl-5 "><BsCashCoin />  Cash Out</button></NavLink>
+      <NavLink to="/user-dashboard/history" className="hover:bg-[#ff3fa9]"> <button className="flex items-center gap-2 text-  py-2 pl-5 "><FcMoneyTransfer /> Transaction history</button></NavLink>
           </div>
         </div>
 
@@ -122,7 +125,7 @@ const UserDashboard = () => {
 </div>
      </div>
         <div className="w- h-48 overflow-hidden hidden mx-1 lg:block bg-gray-100 shadow border mt-2 rounded-md bg-cover bg-no-repeat bg-[url('https://wallpapercave.com/wp/wp5080435.jpg')]">
-        <img className="w-screen h-52" src="https://www.shutterstock.com/image-vector/cash-back-50-off-banner-260nw-1870877113.jpg" alt="" />
+        {/* <img className="w-screen h-52" src="https://www.shutterstock.com/image-vector/cash-back-50-off-banner-260nw-1870877113.jpg" alt="" /> */}
         </div>
      <Outlet></Outlet>
      </div>
